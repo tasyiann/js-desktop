@@ -1,4 +1,4 @@
-# Examination-2
+# Examination assignment 3 - Vagrant Box
 
 This is the repo for the examination 3 in the course. The virtual machine (hashicorp/precise32) will have the following (relevant) packages installed:
 
