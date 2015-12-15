@@ -1,6 +1,6 @@
 # Examination-2
 
-This is the repo for the examination 2 in the course. The virtual machine (hashicorp/precise32) will have the following (relevant) packages installed:
+This is the repo for the examination 3 in the course. The virtual machine (hashicorp/precise32) will have the following (relevant) packages installed:
 
 From start:
 * node.js (Latest stable)
@@ -17,7 +17,7 @@ Make sure you have the following installed on your system:
 
 Now, do:
 
-1. Pull (`git pull https://github.com/1dv022/examination-2.git`) into your existing examination-2 repo. Make sure you are in the root of your repo.
+1. Pull (`git pull https://github.com/1dv022/examination-3.git`) into your existing examination-3 repo. Make sure you are in the root of your repo.
 
 2. Start the virtual machine using `vagrant up` (May take 5-10 minutes this first time. (Ignore red command line statements and warnings.)
 
