@@ -41,6 +41,3 @@ You should have multiple terminals open at the same time. One running the `npm r
 2. Start editing your site in the `source`-folder. **(NEVER EDIT FILES IN THE DEBUG FOLDER.)** When you save a change look at the "vagrant terminal". You should see that the files are rebuilt.
 3. Refresh the webpage `localhost:4000` and this should reflect your changes.
 4. When you debug your application you should to this in the browser, not in the IDE. A simple method is to write `debugger;` in your js-source code where you want to stop the debugger and refresh the browser.
-
-## Intructions for the examination assignment
-The instructions are in the README-file in the examination/client-folder
