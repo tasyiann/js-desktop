@@ -1,7 +1,7 @@
 {
-  "name": "@1dv022/examination-2",
+  "name": "@1dv525/examination-3",
   "version": "1.0.0",
-  "homepage": "https://coursepress.lnu.se/kurs/klientbaserad-webbprogrammering/",
+  "homepage": "https://coursepress.lnu.se/kurs/introduction-to-web-programming/",
   "contributors": [
     {
       "name": "Johan Leitet",
@@ -23,17 +23,17 @@
   "license": "CC-BY-4.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/1dv022/examination-2"
+    "url": "https://github.com/1dv525/examination-3"
   },
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=6.5.0"
   },
   "dependencies": {},
   "devDependencies": {
-    "browserify": "^12.0.1",
-    "http-server": "^0.8.5",
-    "npm-run-all": "^1.2.13",
-    "watchify": "^3.6.0"
+    "browserify": "^13.1.0",
+    "http-server": "^0.9.0",
+    "npm-run-all": "^3.1.0",
+    "watchify": "^3.7.0"
   },
   "bin": {},
   "directories": {

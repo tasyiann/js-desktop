@@ -1,6 +1,6 @@
-# Examination assignment 3 - Vagrant Box
+# Examination assignment - PWD - Vagrant Box
 
-This is the repo for the examination 3 in the course. The virtual machine (hashicorp/precise32) will have the following (relevant) packages installed:
+This is the repo for the examination assignment Personal Web Desktop. The virtual machine (hashicorp/precise32) will have the following (relevant) packages installed:
 
 From start:
 * node.js (Latest stable)
@@ -31,14 +31,14 @@ Now, do:
     * `source/js/app.js` -> `debug/javascript/build.js` app.js and it dependencies are browserified to build.js
     * `source/*.html` -> `debug/*.html` .html-files are copied
     * `source/css/*.css` -> `debug/*.css` .css-files are copied
-  * A webserver is started and if you browse to `http://localhost:4000` you will see the html-page `debug/index.html`. 
+  * A webserver is started and if you browse to `http://localhost:4000` you will see the html-page `debug/index.html`.
 
 ## In the Git-bash or terminal on your local computer
-You should have multiple terminals open at the same time. One running the `npm run debug`  in the vagrant-terminal, and one terminal not ssh:ed to vagrant. In the terminal on your local machine you could to tasks like committing and pushing to GitHub. 
+You should have multiple terminals open at the same time. One running the `npm run debug`  in the vagrant-terminal, and one terminal not ssh:ed to vagrant. In the terminal on your local machine you could to tasks like committing and pushing to GitHub.
 
 ## Local IDE
 1. Start up your IDE (WebStorm) and open a new project pointing to the folder "examination"
-2. Start editing your site in the `source`-folder. **(NEVER EDIT FILES IN THE DEBUG FOLDER.)** When you save a change look at the "vagrant terminal". You should see that the files are rebuilt. 
+2. Start editing your site in the `source`-folder. **(NEVER EDIT FILES IN THE DEBUG FOLDER.)** When you save a change look at the "vagrant terminal". You should see that the files are rebuilt.
 3. Refresh the webpage `localhost:4000` and this should reflect your changes.
 4. When you debug your application you should to this in the browser, not in the IDE. A simple method is to write `debugger;` in your js-source code where you want to stop the debugger and refresh the browser.
 

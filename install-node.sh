@@ -27,7 +27,7 @@ source /home/vagrant/.nvm/nvm.sh
 
 # Installing Node.JS
 echo "Installing Node.JS..."
-nvm install stable
+nvm install node
 chown -R vagrant:vagrant /home/vagrant/.nvm
 export HOME=/home/root
 
