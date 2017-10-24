@@ -7,6 +7,7 @@ function WindowApp () {
   var desktop = document.querySelector('body')
   var pane = document.createElement('div')
   pane.setAttribute('id', 'pane')
+  desktop.appendChild(pane)
   pane.style.left = '' + (pos += 2) + '%'
   pane.style.top = '' + (pos) + '%'
   var header = document.createElement('div')
@@ -15,8 +16,15 @@ function WindowApp () {
 
   var content = document.createElement('div')
   content.setAttribute('id', 'content')
-  desktop.appendChild(pane)
   pane.appendChild(content)
+  // Bounce back
+  var rect1 = pane.getBoundingClientRect()
+  var rect2 = content.getBoundingClientRect()
+  console.log(rect2.bottom, rect1.height)
+  if (rect1.bottom > (window.innerHeight - rect1.height)) {
+    pos = 10
+  }
+
   // Bring it on front
   bringToFront()
 
