@@ -8,38 +8,70 @@ module.exports = function (rows, cols, container) { // Export the whole module
   var pairs = 0
   var tries = 0
   let tiles = [] // aka boxes
-  // Initialise our tiles, with the use of a function
-  tiles = getPictureArray(rows, cols)
-  // Get reference to the container (where to put the game)
-  // container = document.getElementById(container)
-  // Now, is time to use templates!
-  var template = document.createElement('span')
-  var aa = document.createElement('a') // whatever is in template, not shown
-  aa.setAttribute('href', '#')
-  template.appendChild(aa)
-  var imgg = document.createElement('img')
-  imgg.setAttribute('src', 'image/0.png')
-  imgg.setAttribute('class', 'memoryimg')
-  aa.appendChild(imgg)
-  // For each box
-  tiles.forEach(function (tile, index) {
-    // Import the template
-    // this gives us a clone of the template
-    a = document.importNode(template, true)
-    container.appendChild(a)
-    // Add an event listener to each tile
-    a.addEventListener('click', function (event) {  // set parameter the event
-      turnBrick(tile, index, event.target)          // event has informations about which img is clicked
+
+  // Create the homepane
+  var homepane = document.createElement('div')
+  homepane.setAttribute('id', 'memoryhome')
+  homepane.innerHTML = 'Choose a game:'
+  var choices = document.createElement('div')
+  choices.setAttribute('class', 'choices')
+  homepane.appendChild(choices)
+  var choice = document.createElement('button')
+  for (let i = 2; i < 5; i++) {
+    var tmp = document.importNode(choice, true)
+    tmp.innerText = i + 'x' + i
+    tmp.setAttribute('gamechoice', i)
+    choices.appendChild(tmp)
+  }
+  container.appendChild(homepane)
+  // Detect which game:
+  var ele = document.querySelectorAll('.choices')
+  for (var i = 0; i < ele.length; i++) {
+    ele[i].addEventListener('click', function (e) {
+      let value = e.target.getAttribute('gamechoice') || 4
+      rows = value
+      cols = value
+      container.removeChild(homepane)
+      container.appendChild(pane)
+      createGame()
     })
+  }
+  // Create the game pane
+  var pane = document.createElement('div')
+  pane.setAttribute('id', 'memorypane')
+  // container.appendChild(pane) <<<<
 
-    // Why adding 1 to i? because we want it to start from 1
-    if ((index + 1) % cols === 0) {
-      // add a Br! This will break the line.
-      // Make the game 4x4. So, each 4th box, change line
-      container.appendChild(document.createElement('br'))
-    }
-  })// end of foreach
+  function createGame () {
+    // Initialise our tiles, with the use of a function
+    tiles = getPictureArray(rows, cols)
+    // Now, is time to use templates!
+    var template = document.createElement('span')
+    var aa = document.createElement('a') // whatever is in template, not shown
+    aa.setAttribute('href', '#')
+    template.appendChild(aa)
+    var imgg = document.createElement('img')
+    imgg.setAttribute('src', 'image/0.png')
+    imgg.setAttribute('class', 'memoryimg')
+    aa.appendChild(imgg)
+    // For each box
+    tiles.forEach(function (tile, index) {
+      // Import the template
+      // this gives us a clone of the template
+      a = document.importNode(template, true)
+      pane.appendChild(a)
+      // Add an event listener to each tile
+      a.addEventListener('click', function (event) {  // set parameter the event
+        turnBrick(tile, index, event.target)          // event has informations about which img is clicked
+      })
 
+      // Why adding 1 to i? because we want it to start from 1
+      if ((index + 1) % cols === 0) {
+        // add a Br! This will break the line.
+        // Make the game 4x4. So, each 4th box, change line
+        pane.appendChild(document.createElement('br'))
+      }
+    })// end of foreach
+  }
   // Make a new random array with pictures
   function getPictureArray (rows, cols) {
     let i

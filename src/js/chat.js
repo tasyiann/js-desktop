@@ -1,6 +1,8 @@
 /* Constructor function of chat */
+var chatIDs = 0
 function Constructor (container) {
-  var uname = 'anonymous'
+  var chatID = chatIDs++
+  var uname = window.localStorage.getItem('username') || 'anonymous'
   // Create the user's interface
   var homepanel = document.createElement('div')
   homepanel.setAttribute('id', 'chat_homepanel')
@@ -10,23 +12,48 @@ function Constructor (container) {
   var changeUserName = document.createElement('input')
   changeUserName.setAttribute('id', 'changeUserName')
   var welcometext = document.createElement('div')
-  welcometext.innerHTML = 'Connect with your classmates!'
+  welcometext.innerHTML = 'Connect with your classmates!<br><br>'
   var text2 = document.createElement('div')
-  text2.innerHTML = 'Please choose a username and press enter:'
   homepanel.appendChild(welcometext)
   homepanel.appendChild(text2)
-  homepanel.appendChild(changeUserName)
+  // Previous username?
+  if (uname === 'anonymous') {
+    text2.innerHTML = 'Please choose a username and press enter:'
+    homepanel.appendChild(changeUserName)
+  } else {
+    text2.innerHTML = 'Username: ' + uname + '<br> Continue with the same username?'
+    var yes = document.createElement('button')
+    yes.innerHTML = 'YES'
+    var no = document.createElement('button')
+    no.innerHTML = 'NO'
+    homepanel.appendChild(yes)
+    homepanel.appendChild(no)
+    yes.addEventListener('click', function () {
+      homepanel.removeChild(no)
+      homepanel.removeChild(yes)
+      container.removeChild(homepanel)
+      container.appendChild(panel)
+    })
+    no.addEventListener('click', function () {
+      text2.innerHTML = 'Please choose a username and press enter:'
+      homepanel.removeChild(no)
+      homepanel.removeChild(yes)
+      homepanel.appendChild(changeUserName)
+    })
+  }
+
   changeUserName.addEventListener('keypress', function (e) {
     if (e.keyCode === 13) {
       uname = e.target.value
-      container.appendChild(panel)
       container.removeChild(homepanel)
+      container.appendChild(panel)
+      window.localStorage.setItem('username', uname)
     }
   })
 
   var log = document.createElement('div')
-  log.setAttribute('id', 'chat_log')
-
+  log.setAttribute('id', 'chat_log' + chatID)
+  log.setAttribute('class', 'chat_log')
   var textBox = document.createElement('input')
   textBox.setAttribute('id', 'chat_textBox')
   panel.appendChild(log)
@@ -81,7 +108,7 @@ function Constructor (container) {
       type: 'message',
       data: text,
       username: uname,
-      channel: '',
+      channel: 'my, not so secret, channel',
       key: 'eDBE76deU7L0H9mEBgxUKVR0VCnq0XBd'
     }
     // Make sure we are connected!
@@ -94,15 +121,12 @@ function Constructor (container) {
   }
   //
   var printMessage = function (msg) {
-    var log = document.querySelectorAll('#chat_log')
+    var log = document.querySelector('#chat_log' + chatID)
     var div = document.createElement('div')
     div.setAttribute('class', 'msg')
     var string = document.createTextNode('<' + msg.username + '>: ' + msg.data)
     div.appendChild(string)
-    for (let i = 0; i < log.length; i++) {
-      let copy = document.importNode(div, true)
-      log[i].appendChild(copy)
-    }
+    log.appendChild(div)
   }
 }
 

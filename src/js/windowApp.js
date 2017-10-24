@@ -17,6 +17,8 @@ function WindowApp () {
   content.setAttribute('id', 'content')
   desktop.appendChild(pane)
   pane.appendChild(content)
+  // Bring it on front
+  bringToFront()
 
   // set exit button
   var exitA = document.createElement('a')
@@ -37,14 +39,6 @@ function WindowApp () {
   document.addEventListener('mousemove', onMove)
   document.addEventListener('mouseup', onUp)
 
-  // Touch events
-  pane.addEventListener('touchstart', onTouchDown)
-  document.addEventListener('touchmove', onTouchMove)
-  document.addEventListener('touchend', onTouchEnd)
-
-  function onTouchDown (e) { onDown(e.touches[0]); e.preventDefault() }
-  function onTouchMove (e) { onMove(e.touches[0]) }
-  function onTouchEnd (e) { if (e.touches.length === 0) onUp(e.changedTouches[0]) }
   function onMouseDown (e) { onDown(e) }
   function onUp (e) { calc(e); clicked = null }
   function onDown (e) {

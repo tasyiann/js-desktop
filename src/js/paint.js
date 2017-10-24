@@ -8,6 +8,33 @@ function CanvasPaint (container) {
   function setUpToolBar () {
     toolbar.setAttribute('id', 'paint_toolbar')
     container.appendChild(toolbar)
+    // Colors
+    var colors = ['white', 'black', 'red', 'yellow', 'green']
+    for (let i = 0; i < colors.length; i++) {
+      let c = colors[i]
+      var a = document.createElement('a')
+      var img = document.createElement('img')
+      a.appendChild(img)
+      img.setAttribute('src', '../image/' + c + '.jpg')
+      toolbar.appendChild(a)
+      a.addEventListener('click', function () {
+        context.strokeStyle = c
+      })
+    }
+    // Brush size
+    var divSlider = document.createElement('div')
+    divSlider.setAttribute('id', 'divSlider')
+    toolbar.appendChild(divSlider)
+    var sizeSlider = document.createElement('input')
+    sizeSlider.setAttribute('id', 'sizeSlider')
+    sizeSlider.setAttribute('type', 'range')
+    sizeSlider.setAttribute('min', '0')
+    sizeSlider.setAttribute('max', '50')
+    sizeSlider.setAttribute('value', '25')
+    divSlider.appendChild(sizeSlider)
+    sizeSlider.oninput = function () {
+      context.lineWidth = this.value
+    }
   }
 
   function setUpCanvas () {
@@ -15,7 +42,7 @@ function CanvasPaint (container) {
     canvas.width = 320  // match them with css
     context.lineWidth = 20
     context.lineCap = 'round'
-    context.strokeStyle = 'rgb(0, 0 ,50 )'
+    context.strokeStyle = 'black'
   }
 
   function onDown (e) {
