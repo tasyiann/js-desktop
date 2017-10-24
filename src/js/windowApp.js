@@ -19,8 +19,6 @@ function WindowApp () {
   pane.appendChild(content)
   // Bounce back
   var rect1 = pane.getBoundingClientRect()
-  var rect2 = content.getBoundingClientRect()
-  console.log(rect2.bottom, rect1.height)
   if (rect1.bottom > (window.innerHeight - rect1.height)) {
     pos = 10
   }
