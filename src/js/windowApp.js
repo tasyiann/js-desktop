@@ -1,30 +1,13 @@
-var pos = 20
+var pos = 10
 function WindowApp () {
-  /*
-   * @author https://twitter.com/blurspline / https://github.com/zz85
-   * See post @ http://www.lab4games.net/zz85/blog/2014/11/15/resizing-moving-snapping-windows-with-js-css/
-   * KEEP THIS VERSION
-   */
-
-  'use strict'
-
-  // Minimum resizable area
-  var minWidth = 60
-  var minHeight = 40
-
-  // Thresholds
-  var MARGINS = 4
-
   // End of what's configurable.
   var clicked = null
-  var onRightEdge, onBottomEdge, onLeftEdge, onTopEdge
   var b, x, y
-  var redraw = false
 
   var desktop = document.querySelector('body')
   var pane = document.createElement('div')
   pane.setAttribute('id', 'pane')
-  pane.style.left = '' + (pos += 1) + '%'
+  pane.style.left = '' + (pos += 2) + '%'
   pane.style.top = '' + (pos) + '%'
   var header = document.createElement('div')
   header.setAttribute('id', 'window_header')
@@ -40,7 +23,7 @@ function WindowApp () {
   exitA.setAttribute('href', '#')
   var exitImg = document.createElement('img')
   exitImg.setAttribute('id', 'exit_icon')
-  exitImg.setAttribute('src', 'image/exit.ico')
+  exitImg.setAttribute('src', 'image/exit.png')
   exitA.appendChild(exitImg)
   header.appendChild(exitA)
 
@@ -63,26 +46,17 @@ function WindowApp () {
   function onTouchMove (e) { onMove(e.touches[0]) }
   function onTouchEnd (e) { if (e.touches.length === 0) onUp(e.changedTouches[0]) }
   function onMouseDown (e) { onDown(e) }
-
+  function onUp (e) { calc(e); clicked = null }
   function onDown (e) {
     bringToFront()
     calc(e)
-
-    var isResizing = onRightEdge || onBottomEdge || onTopEdge || onLeftEdge
 
     clicked = {
       x: x,
       y: y,
       cx: e.clientX,
       cy: e.clientY,
-      w: b.width,
-      h: b.height,
-      isResizing: isResizing,
-      isMoving: !isResizing && canMove(),
-      onTopEdge: onTopEdge,
-      onLeftEdge: onLeftEdge,
-      onRightEdge: onRightEdge,
-      onBottomEdge: onBottomEdge
+      isMoving: canMove()
     }
   }
 
@@ -94,73 +68,20 @@ function WindowApp () {
     b = pane.getBoundingClientRect()
     x = e.clientX - b.left
     y = e.clientY - b.top
-
-    onTopEdge = y < MARGINS
-    onLeftEdge = x < MARGINS
-    onRightEdge = x >= b.width - MARGINS
-    onBottomEdge = y >= b.height - MARGINS
   }
 
   var e
-
-  function onMove (ee) {
-    calc(ee)
-
-    e = ee
-
-    redraw = true
-  }
-
+  function onMove (ee) { calc(ee); e = ee }
   function animate () {
     window.requestAnimationFrame(animate)
-
-    if (!redraw) return
-
-    redraw = false
-
-    if (clicked && clicked.isResizing) {
-      if (clicked.onRightEdge) pane.style.width = Math.max(x, minWidth) + 'px'
-      if (clicked.onBottomEdge) pane.style.height = Math.max(y, minHeight) + 'px'
-
-      if (clicked.onLeftEdge) {
-        var currentWidth = Math.max(clicked.cx - e.clientX + clicked.w, minWidth)
-        if (currentWidth > minWidth) {
-          pane.style.width = currentWidth + 'px'
-          pane.style.left = e.clientX + 'px'
-        }
-      }
-
-      if (clicked.onTopEdge) {
-        var currentHeight = Math.max(clicked.cy - e.clientY + clicked.h, minHeight)
-        if (currentHeight > minHeight) {
-          pane.style.height = currentHeight + 'px'
-          pane.style.top = e.clientY + 'px'
-        }
-      }
-
-      return
-    }
-
     if (clicked && clicked.isMoving) {
       // moving
       pane.style.top = (e.clientY - clicked.y) + 'px'
       pane.style.left = (e.clientX - clicked.x) + 'px'
-
       return
     }
-
-    // This code executes when mouse moves without clicking
-
     // style cursor
-    if ((onRightEdge && onBottomEdge) || (onLeftEdge && onTopEdge)) {
-      pane.style.cursor = 'nwse-resize'
-    } else if ((onRightEdge && onTopEdge) || (onBottomEdge && onLeftEdge)) {
-      pane.style.cursor = 'nesw-resize'
-    } else if (onRightEdge || onLeftEdge) {
-      pane.style.cursor = 'ew-resize'
-    } else if (onBottomEdge || onTopEdge) {
-      pane.style.cursor = 'ns-resize'
-    } else if (canMove()) {
+    if (canMove()) {
       pane.style.cursor = 'move'
     } else {
       pane.style.cursor = 'default'
@@ -168,11 +89,6 @@ function WindowApp () {
   }
 
   animate()
-
-  function onUp (e) {
-    calc(e)
-    clicked = null
-  }
 
   function bringToFront () {
     var descendents = desktop.getElementsByTagName('*')

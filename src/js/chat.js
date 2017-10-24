@@ -9,6 +9,12 @@ function Constructor (container) {
   panel.setAttribute('id', 'chat_panel')
   var changeUserName = document.createElement('input')
   changeUserName.setAttribute('id', 'changeUserName')
+  var welcometext = document.createElement('div')
+  welcometext.innerHTML = 'Connect with your classmates!'
+  var text2 = document.createElement('div')
+  text2.innerHTML = 'Please choose a username and press enter:'
+  homepanel.appendChild(welcometext)
+  homepanel.appendChild(text2)
   homepanel.appendChild(changeUserName)
   changeUserName.addEventListener('keypress', function (e) {
     if (e.keyCode === 13) {
@@ -91,10 +97,9 @@ function Constructor (container) {
     var log = document.querySelectorAll('#chat_log')
     var div = document.createElement('div')
     div.setAttribute('class', 'msg')
-    var string = document.createTextNode('<' + msg.username + '> :' + msg.data)
+    var string = document.createTextNode('<' + msg.username + '>: ' + msg.data)
     div.appendChild(string)
     for (let i = 0; i < log.length; i++) {
-      console.log('p')
       let copy = document.importNode(div, true)
       log[i].appendChild(copy)
     }
