@@ -1,4 +1,8 @@
-## A cute web app. 
+## A cute web app 😼
+A web app that resembles a custom desktop that contains 3 more web apps:
+- An online chat
+- Memory game
+- Painting tool
 
 <img src= "https://github.com/1dv525/ay222cn-examination-3/blob/master/img.PNG?raw=true">
 
