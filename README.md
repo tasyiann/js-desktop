@@ -1,5 +1,4 @@
-## A cute web app
-This is the assignment repo for the second assignment in the course. 
+## A cute web app. 
 
 <img src= "https://github.com/1dv525/ay222cn-examination-3/blob/master/img.PNG?raw=true">
 
