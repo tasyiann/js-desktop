@@ -4,7 +4,7 @@ A web app that resembles a custom desktop that contains 3 more web apps:
 - Memory game
 - Painting tool
 
-<img src= "https://github.com/1dv525/ay222cn-examination-3/blob/master/img.PNG?raw=true">
+<img src= "https://github.com/tasyiann/cute-web-app/blob/master/img.PNG?raw=true">
 
 ## Installation
 Make sure node.js and npm is installed on your system.
